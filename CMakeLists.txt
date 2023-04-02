@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.18)
 
 project(ProviderDataBase VERSION 0.1 LANGUAGES CXX)
 
@@ -8,43 +8,33 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Core Sql REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Core Sql REQUIRED)
 
-set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
-)
+qt_add_resources(STYLE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/StyleApp.qrc")
+qt_add_resources(IMAGE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/Image/Images.qrc")
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(ProviderDataBase
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET ProviderDataBase APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(ProviderDataBase SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(ProviderDataBase
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
+set(WINDOWS         Windows/MainWindow.h Windows/MainWindow.cpp Windows/MainWindow.ui
+                    Windows/WindowContacts.cpp Windows/WindowContacts.h Windows/WindowContacts.ui)
 
-target_link_libraries(ProviderDataBase PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+set(OTHER_SOURCES Sources/Command.h
+                  Sources/IdentifyCompany.h Sources/IdentifyCompany.cpp
+                  Sources/IdentifyContacts.h Sources/IdentifyContacts.cpp)
+
+set(PROJECT_SOURCES main.cpp ${WINDOWS} ${OTHER_SOURCES})
+
+add_executable(ProviderDataBase WIN32 ${PROJECT_SOURCES} ${STYLE_RCC} ${IMAGE_RCC})
+
+
+target_link_libraries(ProviderDataBase PRIVATE Qt${QT_VERSION_MAJOR}::Widgets
+                                               Qt${QT_VERSION_MAJOR}::Core
+                                               Qt${QT_VERSION_MAJOR}::Sql)
+
+target_include_directories(ProviderDataBase PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/Windows"
+                                                    "${CMAKE_CURRENT_SOURCE_DIR}/Sources")
 
 set_target_properties(ProviderDataBase PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

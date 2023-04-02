@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Medize.qss</file>
+    </qresource>
+</RCC>

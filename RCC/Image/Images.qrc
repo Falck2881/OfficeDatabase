@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>braubergLogo.png</file>
+        <file>lustrofLogo.png</file>
+        <file>StartBackground.jpg</file>
+        <file>Find.png</file>
+        <file>FindDataBase.png</file>
+    </qresource>
+</RCC>

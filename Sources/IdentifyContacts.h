@@ -1,14 +1,14 @@
 #ifndef IDENTIFYCONTACTS_H
 #define IDENTIFYCONTACTS_H
 
-#include "Command.h"
+#include "Identify.h"
 #include <utility>
 #include <QPixmap>
 #include <QString>
 
 class WindowContacts;
 
-class IdentifyContacts: public Command
+class IdentifyContacts: public Identify
 {
     Q_OBJECT
 

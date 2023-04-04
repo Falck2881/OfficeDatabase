@@ -200,9 +200,14 @@ QToolTip
 QLineEdit{
 	background-color: #fefffc;
 	color: #000;
-
 }
 
+QLineEdit:disabled
+{
+background-color: #a2a4a6;
+color: #000;
+border: 1px solid black;
+}
 
 /*-----QTextEdit-----*/
 QTableWidget{
@@ -246,24 +251,30 @@ QComboBox QAbstractItemView
 
 QComboBox::drop-down
 {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 15px;
-    border-left-width: 0px;
-    border-left-color: darkgray;
-    border-left-style: solid; 
-    border-top-right-radius: 3px; 
-    border-bottom-right-radius: 3px;
+subcontrol-origin: padding;
+subcontrol-position: top right;
+width: 24px;
+border-left-width: 0px;
+border-left-color: darkgray;
+border-left-style: solid;
+border-top-right-radius: 3px;
+border-bottom-right-radius: 3px;
 
 }
 
 
 QComboBox::down-arrow
 {
-	image: url("./ressources/down_arrow.png");
-	width:8px;
-	height:8px;
+image: url(":/down.png");
+width:24px;
+height:24px;
 
+}
+
+QComboBox:disabled
+{
+     background-color: #a2a4a6;
+     color: #000;
 }
 
 
@@ -431,4 +442,32 @@ QStatusBar
 
 }
 
+/*----QPushButton---*/
+QPushButton:enabled
+{
+background-color: white;
+color: #000000;
+border-color: #000000;
+}
 
+QPushButton:disabled
+{
+background-color: #a2a4a6;
+color: #000000;
+border-color: #000000;
+}
+
+QPushButton:hover
+{
+background-color: #d6e1f0;
+color: #000000;
+border-color: #000000;
+}
+
+QTableView
+{
+    background-color: white;
+    selection-background-color: #6b7dbd;
+    color: #000000;
+    border-color: #000000;
+}

@@ -5,5 +5,6 @@
         <file>StartBackground.jpg</file>
         <file>Find.png</file>
         <file>FindDataBase.png</file>
+        <file>down.png</file>
     </qresource>
 </RCC>

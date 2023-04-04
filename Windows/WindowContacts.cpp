@@ -1,5 +1,6 @@
 #include "WindowContacts.h"
 #include "./ui_WindowContacts.h"
+#include "FunctionsDataBase.h"
 #include <QSqlDatabase>
 #include <QDebug>
 #include <QSqlRecord>
@@ -8,14 +9,15 @@
 #include <QSqlQuery>
 
 WindowContacts::WindowContacts(QWidget *parent):
-    ui(new Ui::contactWindow)
+    ui(new Ui::contactWindow),nameConnect("ConnectWithProvider")
 {
     ui->setupUi(this);
 }
 
 void WindowContacts::setContacts(const std::pair<QPixmap, QString> &attributes)
 {
-   QSqlDatabase dBCompany = QSqlDatabase::database("db");
+   createConnectWithDataBase(nameConnect);
+   QSqlDatabase dBCompany = QSqlDatabase::database(nameConnect);
    if(dBCompany.open()){
        qDebug() << "Success open data base DBManufacturer.accdb";
        changeWindowOfContants(attributes);
@@ -26,7 +28,7 @@ void WindowContacts::setContacts(const std::pair<QPixmap, QString> &attributes)
 
 void WindowContacts::changeWindowOfContants(const std::pair<QPixmap, QString> &attributes)
 {
-    if(QSqlDatabase::database("db").isOpen()){
+    if(QSqlDatabase::database(nameConnect).isOpen()){
         changeLogoCompany(attributes.first);
         changeDescriptionAtCompany(attributes.second);
         changeTitleCompany(attributes.second);
@@ -45,7 +47,7 @@ void WindowContacts::changeLogoCompany(const QPixmap& logo)
 void WindowContacts::changeDescriptionAtCompany(const QString& id)
 {
     const QString select{"SELECT Description FROM Manufactures WHERE ID = %1"};
-    QSqlQuery query(select.arg(id), QSqlDatabase::database("db"));
+    QSqlQuery query(select.arg(id), QSqlDatabase::database(nameConnect));
     query.next();
     ui->textEdit->setText(query.value(0).toString());
 }
@@ -53,7 +55,7 @@ void WindowContacts::changeDescriptionAtCompany(const QString& id)
 void WindowContacts::changeTitleCompany(const QString& id)
 {
     const QString select{"SELECT Name_Company FROM Manufactures WHERE ID = %1"};
-    QSqlQuery query(select.arg(id),QSqlDatabase::database("db"));
+    QSqlQuery query(select.arg(id),QSqlDatabase::database(nameConnect));
     query.next();
 
     QTableWidgetItem* item{new QTableWidgetItem(query.value(0).toString())};
@@ -65,7 +67,7 @@ void WindowContacts::changeCummonInfo(const QString& id)
 {
     const QString select{"SELECT ID, Number_Phone, Addres, EMail, Work_Schedule,"
                          "Time_Work, Weekend FROM Manufactures WHERE ID = %1"};
-    QSqlQuery query(select.arg(id),QSqlDatabase::database("db"));
+    QSqlQuery query(select.arg(id),QSqlDatabase::database(nameConnect));
     QSqlRecord record{query.record()};
     query.next();
 
@@ -80,7 +82,7 @@ void WindowContacts::changeCummonInfo(const QString& id)
 void WindowContacts::changeCEOInfo(const QString& id)
 {
     const QString select{"SELECT ID, FIO, Number_Phone FROM GeneralManager WHERE ID = %1"};
-    QSqlQuery query(select.arg(id),QSqlDatabase::database("db"));
+    QSqlQuery query(select.arg(id),QSqlDatabase::database(nameConnect));
     QSqlRecord record{query.record()};
     query.next();
 
@@ -96,7 +98,7 @@ void WindowContacts::changeCEOInfo(const QString& id)
 void WindowContacts::changeManagersInfo(const QString& id)
 {
     const QString select{"SELECT ID, FIO, Number_Phone FROM MainManagerAtSales WHERE ID = %1"};
-    QSqlQuery query(select.arg(id),QSqlDatabase::database("db"));
+    QSqlQuery query(select.arg(id),QSqlDatabase::database(nameConnect));
     QSqlRecord record{query.record()};
     query.next();
 
@@ -113,7 +115,7 @@ void WindowContacts::changeRequisitesInfo(const QString& id)
     const QString select{"SELECT ID, Legal_Name, Legal_Address, Physical_Address,"
                          "INN, OGRNIP, Paymant_Account, Correspondent_Account,"
                          "BIK, Bank FROM Requisites WHERE ID = %1"};
-    QSqlQuery query(select.arg(id),QSqlDatabase::database("db"));
+    QSqlQuery query(select.arg(id),QSqlDatabase::database(nameConnect));
     QSqlRecord record{query.record()};
     query.next();
 
@@ -123,6 +125,24 @@ void WindowContacts::changeRequisitesInfo(const QString& id)
         QTableWidgetItem* item{new QTableWidgetItem(value.toString())};
         ui->requisitesTable->setItem(index,0,item);
     }
+}
+
+void WindowContacts::showCommonInformation()
+{
+    ui->tabWidget->setCurrentIndex(0);
+    show();
+}
+
+void WindowContacts::showManagers()
+{
+    ui->tabWidget->setCurrentIndex(1);
+    show();
+}
+
+void WindowContacts::showRequisites()
+{
+    ui->tabWidget->setCurrentIndex(2);
+    show();
 }
 
 WindowContacts::~WindowContacts()

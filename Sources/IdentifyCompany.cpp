@@ -1,7 +1,7 @@
 #include "IdentifyCompany.h"
 #include "WindowContacts.h"
 
-void IdentifyCompany::append(std::unique_ptr<Command> command)
+void IdentifyCompany::append(std::shared_ptr<Identify> command)
 {
     allCommands.push_back(std::move(command));
 }

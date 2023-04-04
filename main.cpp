@@ -4,8 +4,6 @@
 #include <QDebug>
 #include <QSqlDatabase>
 
-static void createConnectWithDataBase();
-
 int main(int argc, char *argv[])
 {
     QFile file(":/Medize.qss");
@@ -14,16 +12,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     app.setStyleSheet(file.readAll());
 
-    createConnectWithDataBase();
-
     MainWindow mainWin;
     mainWin.show();
     return app.exec();
-}
-
-static void createConnectWithDataBase()
-{
-    QSqlDatabase db = QSqlDatabase::addDatabase("QODBC","db");
-    db.setDatabaseName("DRIVER={Microsoft Access Driver (*.mdb, *.accdb)};"
-                       "FIL={MS Access};DBQ=C:/MyProgectQt/OfficeDatabase/DB/DBManufacturer.accdb");
 }

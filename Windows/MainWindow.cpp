@@ -2,21 +2,29 @@
 #include "ui_MainWindow.h"
 #include "IdentifyCompany.h"
 #include "IdentifyContacts.h"
+#include "IdentifyProduct.h"
+#include "FindProduct.h"
 #include <QTabWidget>
+#include <QSqlDatabase>
+#include <QTableView>
+#include <QSqlTableModel>
+#include <QVBoxLayout>
 
 MainWindow::MainWindow(QWidget *parent):
     QWidget(parent),
     ui(new Ui::MainWindow),
     winContact{std::make_unique<WindowContacts>()},
-    identifyCompany{std::make_unique<IdentifyCompany>()}
+    identifyProviders{std::make_unique<IdentifyCompany>()}
 {
     ui->setupUi(this);
     move(100,10);
     setStartBackground();
     setIcons();
     addCommandsForIndentifyCompany();
-    connectToYourSlots();
-    connectToWindowOfContacts();
+    initializeCommandsOfFind();
+    connectingToYourSlots();
+    connectingWithProviders();
+    connectingForProductFind();
 }
 
 void MainWindow::setStartBackground()
@@ -33,20 +41,41 @@ void MainWindow::setIcons()
     ui->iconFindDataBase->setPixmap(QPixmap(":/FindDataBase.png"));
 }
 
-void MainWindow::addCommandsForIndentifyCompany()
+void MainWindow::initializeCommandsOfFind()
 {
-    identifyCompany->append(std::make_unique<IdentifyContacts>(winContact.get()));
+    findProduct = std::make_unique<FindProduct>(ui->tabsWorking);
 }
 
-void MainWindow::connectToYourSlots()
+void MainWindow::addCommandsForIndentifyCompany()
+{
+    identifyProduct = std::make_shared<IdentifyProduct>(ui->tabsWorking);
+    identifyProviders->append(identifyProduct);
+    identifyProviders->append(std::make_shared<IdentifyContacts>(winContact.get()));
+}
+
+void MainWindow::connectingToYourSlots()
 {
     QObject::connect(ui->chooseCompany, &QComboBox::currentIndexChanged, this, &MainWindow::changeStateOfButtons);
 }
 
-void MainWindow::connectToWindowOfContacts()
+void MainWindow::connectingWithProviders()
 {
-    QObject::connect(ui->chooseCompany, &QComboBox::currentTextChanged, identifyCompany.get(), &IdentifyCompany::execute);
-    QObject::connect(ui->full_Info_Company_Button, &QPushButton::clicked, winContact.get(), &QWidget::show);
+    QObject::connect(ui->chooseCompany, &QComboBox::currentTextChanged,
+                     identifyProviders.get(), &IdentifyCompany::execute);
+    QObject::connect(ui->chooseTypeProducts, &QComboBox::currentTextChanged,
+                     identifyProduct.get(), &IdentifyProduct::addProductsTable);
+    QObject::connect(ui->full_Info_Company_Button, &QPushButton::clicked,
+                     winContact.get(), &WindowContacts::showCommonInformation);
+    QObject::connect(ui->managersButton, &QPushButton::clicked,
+                     winContact.get(), &WindowContacts::showManagers);
+    QObject::connect(ui->requisitesButton, &QPushButton::clicked,
+                     winContact.get(), &WindowContacts::showRequisites);
+}
+
+void MainWindow::connectingForProductFind()
+{
+    QObject::connect(ui->inputNameProducts, &QLineEdit::textEdited, findProduct.get(), &FindProduct::saveNameProduct);
+    QObject::connect(ui->inputNameProducts, &QLineEdit::returnPressed, findProduct.get(), &FindProduct::execute);
 }
 
 void MainWindow::changeStateOfButtons(const qint32 indexOnCompany)

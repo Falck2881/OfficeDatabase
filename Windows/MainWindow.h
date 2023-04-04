@@ -5,6 +5,8 @@
 #include <memory>
 #include "WindowContacts.h"
 #include "IdentifyCompany.h"
+#include "IdentifyProduct.h"
+#include "FindProduct.h"
 
 namespace Ui {
 class MainWindow;
@@ -23,13 +25,17 @@ class MainWindow : public QWidget
         void setStartBackground();
         void setIcons();
         void addCommandsForIndentifyCompany();
-        void connectToYourSlots();
-        void connectToWindowOfContacts();
+        void initializeCommandsOfFind();
+        void connectingToYourSlots();
+        void connectingWithProviders();
+        void connectingForProductFind();
         void buttonsActivity(bool state);
     private:
         Ui::MainWindow *ui;
         std::unique_ptr<WindowContacts> winContact;
-        std::unique_ptr<IdentifyCompany> identifyCompany;
+        std::unique_ptr<IdentifyCompany> identifyProviders;
+        std::shared_ptr<IdentifyProduct> identifyProduct;
+        std::unique_ptr<FindProduct> findProduct;
 };
 
 #endif // MAINWINDOW_H

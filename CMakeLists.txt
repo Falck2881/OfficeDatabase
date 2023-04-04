@@ -20,9 +20,16 @@ qt_add_resources(IMAGE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/Image/Images.qrc")
 set(WINDOWS         Windows/MainWindow.h Windows/MainWindow.cpp Windows/MainWindow.ui
                     Windows/WindowContacts.cpp Windows/WindowContacts.h Windows/WindowContacts.ui)
 
-set(OTHER_SOURCES Sources/Command.h
+set(OTHER_SOURCES Sources/Identify.h
                   Sources/IdentifyCompany.h Sources/IdentifyCompany.cpp
-                  Sources/IdentifyContacts.h Sources/IdentifyContacts.cpp)
+                  Sources/IdentifyContacts.h Sources/IdentifyContacts.cpp
+                  Sources/IdentifyProduct.h Sources/IdentifyProduct.cpp
+                  Sources/ProductTables.h Sources/ProductTables.cpp
+                  Sources/LustrofProductTables.h Sources/LustrofProductTables.cpp
+                  Sources/BraubergProductTables.h Sources/BraubergProductTables.cpp
+                  Sources/FunctionsDataBase.h
+                  Sources/Find.h
+                  Sources/FindProduct.h Sources/FindProduct.cpp)
 
 set(PROJECT_SOURCES main.cpp ${WINDOWS} ${OTHER_SOURCES})
 

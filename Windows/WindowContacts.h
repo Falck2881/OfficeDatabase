@@ -20,6 +20,10 @@ class WindowContacts : public QMainWindow
         WindowContacts(QWidget *parent = nullptr);
         ~WindowContacts();
         void setContacts(const std::pair<QPixmap,QString>& attributes);
+    public slots:
+        void showCommonInformation();
+        void showManagers();
+        void showRequisites();
     private:
         void changeWindowOfContants(const std::pair<QPixmap,QString>&);
         void changeLogoCompany(const QPixmap& logo);
@@ -31,5 +35,6 @@ class WindowContacts : public QMainWindow
         void changeRequisitesInfo(const QString& id);
     private:
         Ui::contactWindow *ui;
+        const QString nameConnect;
 };
 #endif // WINDOWCONTACTS_H

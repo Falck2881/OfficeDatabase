@@ -4,8 +4,9 @@
 #include <QWidget>
 #include <memory>
 #include "WindowContacts.h"
-#include "IdentifyCompany.h"
-#include "IdentifyProduct.h"
+#include "WindowFind.h"
+#include "MacroCommands.h"
+#include "AddTable.h"
 #include "FindProduct.h"
 
 namespace Ui {
@@ -21,20 +22,22 @@ class MainWindow : public QWidget
         ~MainWindow();
     private slots:
         void changeStateOfButtons(const qint32 indexOnCompany);
+        void removePage(const qint32 index);
     private:
-        void setStartBackground();
         void setIcons();
-        void addCommandsForIndentifyCompany();
-        void initializeCommandsOfFind();
+        void initializeCommands();
         void connectingToYourSlots();
         void connectingWithProviders();
         void connectingForProductFind();
         void buttonsActivity(bool state);
+        void addStartPage();
+        void removeContentOfPage(const qint32 index);
     private:
         Ui::MainWindow *ui;
         std::unique_ptr<WindowContacts> winContact;
-        std::unique_ptr<IdentifyCompany> identifyProviders;
-        std::shared_ptr<IdentifyProduct> identifyProduct;
+        std::unique_ptr<WindowFind> winFind;
+        std::unique_ptr<AddTable> addTable;
+        std::unique_ptr<Command> addContacts;
         std::unique_ptr<FindProduct> findProduct;
 };
 

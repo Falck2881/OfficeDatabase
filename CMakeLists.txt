@@ -16,24 +16,32 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Core Sql REQUIRED)
 
 qt_add_resources(STYLE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/StyleApp.qrc")
 qt_add_resources(IMAGE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/Image/Images.qrc")
+qt_add_resources(DB_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/DB.qrc")
 
-set(WINDOWS         Windows/MainWindow.h Windows/MainWindow.cpp Windows/MainWindow.ui
-                    Windows/WindowContacts.cpp Windows/WindowContacts.h Windows/WindowContacts.ui)
+set(WINDOWS Windows/MainWindow.h Windows/MainWindow.cpp Windows/MainWindow.ui
+            Windows/WindowContacts.cpp Windows/WindowContacts.h Windows/WindowContacts.ui
+            Windows/WindowFind.h Windows/WindowFind.cpp Windows/WindowFind.ui)
 
-set(OTHER_SOURCES Sources/Identify.h
-                  Sources/IdentifyCompany.h Sources/IdentifyCompany.cpp
-                  Sources/IdentifyContacts.h Sources/IdentifyContacts.cpp
-                  Sources/IdentifyProduct.h Sources/IdentifyProduct.cpp
-                  Sources/ProductTables.h Sources/ProductTables.cpp
-                  Sources/LustrofProductTables.h Sources/LustrofProductTables.cpp
-                  Sources/BraubergProductTables.h Sources/BraubergProductTables.cpp
+set(OTHER_SOURCES Sources/Command.h
+                  Sources/MacroCommands.h Sources/MacroCommands.cpp
+                  Sources/ChangeLogo.h Sources/ChangeLogo.cpp
+                  Sources/AddContacts.h Sources/AddContacts.cpp
+                  Sources/AddTable.h Sources/AddTable.cpp
+                  Sources/CreateTableIntoPage.h Sources/CreateTableIntoPage.cpp
+                  Sources/CreateModelIntoTable.h Sources/CreateModelIntoTable.cpp
+                  Sources/TableModel.h Sources/TableModel.cpp
+                  Sources/LustrofTableName.h Sources/LustrofTableName.cpp
+                  Sources/BraubergTableName.h Sources/BraubergTableName.cpp
                   Sources/FunctionsDataBase.h
                   Sources/Find.h
-                  Sources/FindProduct.h Sources/FindProduct.cpp)
+                  Sources/VolumeSearch.h Sources/VolumeSearch.cpp
+                  Sources/FindProduct.h Sources/FindProduct.cpp
+                  Sources/FindIntoPage.h Sources/FindIntoPage.cpp
+                  Sources/FindIntoTable.h Sources/FindIntoTable.cpp)
 
 set(PROJECT_SOURCES main.cpp ${WINDOWS} ${OTHER_SOURCES})
 
-add_executable(ProviderDataBase WIN32 ${PROJECT_SOURCES} ${STYLE_RCC} ${IMAGE_RCC})
+add_executable(ProviderDataBase WIN32 ${PROJECT_SOURCES} ${STYLE_RCC} ${IMAGE_RCC} ${DB_RCC})
 
 
 target_link_libraries(ProviderDataBase PRIVATE Qt${QT_VERSION_MAJOR}::Widgets

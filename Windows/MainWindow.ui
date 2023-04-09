@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>My Business</string>
   </property>
   <widget class="QTabWidget" name="tabsWorking">
    <property name="geometry">
@@ -39,6 +39,9 @@
    </property>
    <property name="currentIndex">
     <number>-1</number>
+   </property>
+   <property name="tabsClosable">
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="Line" name="line">
@@ -370,7 +373,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="findSimilarButton">
+     <widget class="QPushButton" name="findButton">
       <property name="enabled">
        <bool>false</bool>
       </property>

@@ -41,7 +41,7 @@ set(OTHER_SOURCES Sources/Command.h
 
 set(PROJECT_SOURCES main.cpp ${WINDOWS} ${OTHER_SOURCES})
 
-configure_file("${CMAKE_CURRENT_SOURCE_DIR}/DB/DBManufacturer.accdb" ${CMAKE_CURRENT_BINARY_DIR} COPYONLY);
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/DB/DBManufacturer.accdb" ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
 add_executable(ProviderDataBase WIN32 ${PROJECT_SOURCES} ${STYLE_RCC} ${IMAGE_RCC} ${DB_RCC})
 

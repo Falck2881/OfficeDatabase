@@ -9,11 +9,12 @@
 #include <QSqlTableModel>
 #include <QVBoxLayout>
 
+
 MainWindow::MainWindow(QWidget *parent):
-    QWidget(parent),
-    ui(new Ui::MainWindow),
-    winContact{std::make_unique<WindowContacts>()},
-    winFind{std::make_unique<WindowFind>()}
+        QWidget(parent),
+        ui(new Ui::MainWindow),
+        winContact{std::make_unique<WindowContacts>()},
+        winFind{std::make_unique<WindowFind>()}
 {
     ui->setupUi(this);
     move(100,10);

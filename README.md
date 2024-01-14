@@ -6,7 +6,7 @@
 #  На данный момент база данных распространяеться в папке (ссылка ниже) с исполняемым файлом. 
 
 # ОС
-- Windows: https://drive.google.com/drive/folders/1FxSEjs_jE9oXi94__XCsZUwsByFH4pn2?usp=share_link
+- Windows: https://drive.google.com/drive/folders/1YDykAVZuQ0oMMqpzhTJPghXNIuTzrzD7?usp=sharing
 
 # Внешний вид программы 
 

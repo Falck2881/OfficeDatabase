@@ -16,7 +16,6 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Core Sql REQUIRED)
 
 qt_add_resources(STYLE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/StyleApp.qrc")
 qt_add_resources(IMAGE_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/Image/Images.qrc")
-qt_add_resources(DB_RCC "${CMAKE_CURRENT_SOURCE_DIR}/RCC/DB.qrc")
 
 set(WINDOWS Windows/MainWindow.h Windows/MainWindow.cpp Windows/MainWindow.ui
             Windows/WindowContacts.cpp Windows/WindowContacts.h Windows/WindowContacts.ui
@@ -43,7 +42,7 @@ set(PROJECT_SOURCES main.cpp ${WINDOWS} ${OTHER_SOURCES})
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/DB/DBManufacturer.accdb" ${CMAKE_CURRENT_BINARY_DIR} COPYONLY)
 
-add_executable(ProviderDataBase WIN32 ${PROJECT_SOURCES} ${STYLE_RCC} ${IMAGE_RCC} ${DB_RCC})
+add_executable(ProviderDataBase WIN32 ${PROJECT_SOURCES} ${STYLE_RCC} ${IMAGE_RCC} )
 
 
 target_link_libraries(ProviderDataBase PRIVATE Qt${QT_VERSION_MAJOR}::Widgets

@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="./">
+    <qresource prefix="/">
         <file>DBManufacturer.accdb</file>
     </qresource>
 </RCC>

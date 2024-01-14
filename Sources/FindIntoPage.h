@@ -15,7 +15,7 @@ class FindIntoPage: public FindProduct
         void execute() override;
     private:
         bool isExistProductTables() const;
-        void searchOfRecord(const QString& nameProduct);
+        void searchOfRecord();
         QTableView* getProductTable() const;
     private:
         QTabWidget* const tabWidget;

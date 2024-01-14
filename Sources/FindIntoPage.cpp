@@ -9,7 +9,7 @@ FindIntoPage::FindIntoPage(QTabWidget* const tabWidget):tabWidget(tabWidget)
 void FindIntoPage::execute()
 {
     if(isExistProductTables())
-        searchOfRecord(nameProduct);
+        searchOfRecord();
 }
 
 bool FindIntoPage::isExistProductTables() const
@@ -17,7 +17,7 @@ bool FindIntoPage::isExistProductTables() const
     return tabWidget->count() != 1;
 }
 
-void FindIntoPage::searchOfRecord(const QString &nameProduct)
+void FindIntoPage::searchOfRecord()
 {
     QTableView* productTable{getProductTable()};
     productTable->keyboardSearch(nameProduct);
